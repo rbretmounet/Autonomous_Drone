@@ -1,5 +1,7 @@
-// This File will be used for basic motor control for basic movement.
-// Such as yaw, roll, and pitch of the drone.
+// ****************************************************************** 
+// This File will be used for basic motor control for basic movement.*
+// Such as yaw, roll, and pitch of the drone.                        *
+// *******************************************************************
 void setup() {
   // put your setup code here, to run once:
 
