@@ -7,9 +7,9 @@
 // Used to set home position of drone
 void setHome()
 {
-  homeLattitude = (gps.location.lat());
-  homeLongitude = (gps.location.lng());
-  homeAltitude = (gps.altitude.meters());
+    homeLattitude = (gps.location.lat());
+    homeLongitude = (gps.location.lng());
+    homeAltitude = (gps.altitude.feet());
 }
 // Used to print out all the gps data that is needed.
 void printData()
@@ -19,17 +19,17 @@ void printData()
     int data = gpsSerial.read();
     if (gps.encode(data))
     {
-      Serial.print ("lattitude: ");
+      Serial.print ("Lattitude: ");
       Serial.println (currentLattitude);
-      Serial.println("");
-      Serial.print ("longitude: ");
+      Serial.print ("Longitude: ");
       Serial.println (currentLongitude);
-      Serial.println("");
-      Serial.print ("altitude: ");
+      Serial.print ("Altitude: ");
       Serial.println(currentAltitude);
-      Serial.println("");
-      Serial.print ("distance: ");
+      Serial.print ("Distance: ");
       Serial.println(Distance_To_Destination);
+      Serial.print ("Course: ");
+      Serial.println(courseChangeNeeded);
+      Serial.println(" ");
     }
   }
 }
@@ -39,7 +39,7 @@ void getData()
 {
   currentLattitude = (gps.location.lat());
   currentLongitude = (gps.location.lng());
-  currentAltitude = (gps.altitude.meters());
+  currentAltitude = (gps.altitude.feet());
 }
 
 // Used to set the destination data.
@@ -51,7 +51,14 @@ void setDestination(float altitude, float lattitude, float longitude)
 }
 
 // Used to calculated the distance to the final destination
-void updateDistance(float desLongitude, float desLattitude, float currLongitude, float currLattitude)
+void updateDistance()
 {
-  Distance_To_Destination = TinyGPSPlus::distanceBetween(desLattitude,desLongitude,currLattitude,currLongitude);
+  Distance_To_Destination = TinyGPSPlus::distanceBetween(currentLattitude,currentLongitude,destinationLattitude,destinationLongitude);
+}
+
+void plotCourse()
+{
+  Course_To_Destination = TinyGPSPlus::courseTo(currentLattitude,currentLongitude,destinationLattitude,destinationLongitude);
+  courseChangeNeeded = (int)(360 + Course_To_Destination - gps.course.deg()) % 360;
+
 }
