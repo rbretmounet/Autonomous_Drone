@@ -20,7 +20,7 @@ void setup()
 }
 
 // Used to increase the drone's altitude.
-void upwardMovement()
+void increaseAltitude()
 {
   for(int i = 900; i < 2300; i += 1)  // goes from 0 degrees to 2300 degrees in steps of 1 degree  
   {                         
@@ -33,7 +33,7 @@ void upwardMovement()
     Serial.println(throttle); // waits 15ms for the servo to reach the position 
   }
 }
-void downwardMovement()
+void decreaseAltitude()
 {
   for(int i = 2300; i > 900; i -= 1)  // goes from 2300 degrees to 0 degrees in steps of 1 degree  
   {
