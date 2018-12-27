@@ -67,7 +67,7 @@ void loop()
   }
   doubleAltitude = (homeAltitude*2);
   // When the drone reaches the destination.
-  if(Distance_To_Destination == 0)
+  if(Distance_To_Destination < 10)
   {
     // Stop the drone in the air and hover.
     hover();
