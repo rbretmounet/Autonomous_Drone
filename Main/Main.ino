@@ -1,13 +1,13 @@
 // ****************************************************************** 
-// *
-//                       *
-// *******************************************************************
-void setup() {
-  // put your setup code here, to run once:
+// Used to link all of the functions and different components of the*
+// entire project                                                   *
+// ******************************************************************
+// Function prototypes
+void upwardMovement();
+void downwardMovement();
 
-}
-
-void loop() {
-  // put your main code here, to run repeatedly:
-
+void loop()
+{
+ upwardMovement();
+ downwardMovement();
 }
