@@ -3,11 +3,11 @@
 // entire project                                                   *
 // ******************************************************************
 // Function prototypes
-void upwardMovement();
-void downwardMovement();
+void increaseAltitude();
+void decreaseAltitude();
 
 void loop()
 {
- upwardMovement();
- downwardMovement();
+ increaseAltitude();
+ decreaseAltitude();
 }
