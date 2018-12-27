@@ -24,7 +24,7 @@ Servo motor_4; // Used to communicate values to the esc analog pin connected to 
 SoftwareSerial gpsSerial(4,3); // Declares pin used to print out gps data.
 TinyGPSPlus gps; // Declares a gps object.
 float homeLattitude,homeLongitude,homeAltitude,currentLattitude, currentLongitude, currentAltitude, 
-      destinationLattitude, destinationLongitude, destinationAltitude; // Used to store data from gps.
+      destinationLattitude, destinationLongitude, destinationAltitude, doubleAltitude; // Used to store data from gps.
 unsigned long Distance_To_Destination; // Used to store the distance from the final destination
 int throttle = 900; // Used to control the throttle speed of the motor.
 
@@ -37,15 +37,31 @@ void setup()
   motor_4.attach(12); // Declares the pin of the fourth esc.  
   Serial.begin(9600);
   gpsSerial.begin(9600);
-  setHome();
-  setDestination(79.0, 38.088651, -122.158895);
+  // Makes sure the value is set to the true number.
+  while (homeLattitude == 0 && homeLongitude == 0 && homeAltitude == 0)
+  {
+    setHome();
+  }
+  setDestination(79.20, 38.088646, -122.158883);
 }
 
 void loop()
 {
-  getData();
-  updateDistance(destinationLongitude,destinationLattitude,currentLongitude,currentLattitude);
-  printData();
+   // Makes sure that the gps gets a lat and long before starting the logic.
+  while(currentLattitude == 0 || currentLongitude == 0)
+  {
+    getData();
+    updateDistance(destinationLongitude,destinationLattitude,currentLongitude,currentLattitude);
+    printData();
+  }
+  // Updates the current lat and long.
+  if(currentLattitude != 0 || currentLongitude != 0)
+  {
+    getData();
+    updateDistance(destinationLongitude,destinationLattitude,currentLongitude,currentLattitude);
+    printData();
+  }
+  doubleAltitude = (homeAltitude*2);
   // When the drone reaches the destination.
   if(Distance_To_Destination == 0)
   {
@@ -62,9 +78,15 @@ void loop()
       }
     }
   }
-  // Increase the altitude until the drones altitude is 2 times higher.
-  while(currentAltitude != (currentAltitude*2))
+  // Otherwise it means that the drone isnt at the final destination.
+  else
   {
-    increaseAltitude();
+    // Increase the altitude until the drones altitude is 2 times higher.
+    while(currentAltitude < doubleAltitude)
+    {
+      increaseAltitude();
+    }
+    hover();
   }
+  
 }
