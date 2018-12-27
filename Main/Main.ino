@@ -14,8 +14,9 @@ void getData();
 void hover();
 void setHome();
 void setDestination(float, float, float);
-void updateDistance(float, float, float, float);
+void updateDistance();
 void motorsOff();
+void plotCourse();
 
 Servo motor_1; // Used to communicate values to the esc analog pin connected to motor 1.
 Servo motor_2; // Used to communicate values to the esc analog pin connected to motor 2.
@@ -25,9 +26,9 @@ SoftwareSerial gpsSerial(4,3); // Declares pin used to print out gps data.
 TinyGPSPlus gps; // Declares a gps object.
 float homeLattitude,homeLongitude,homeAltitude,currentLattitude, currentLongitude, currentAltitude, 
       destinationLattitude, destinationLongitude, destinationAltitude, doubleAltitude; // Used to store data from gps.
-unsigned long Distance_To_Destination; // Used to store the distance from the final destination
+unsigned long Distance_To_Destination, Course_To_Destination; // Used to store the distance from the final destination
 int throttle = 900; // Used to control the throttle speed of the motor.
-
+int courseChangeNeeded; // Used to store the amount of degegrees needed to correct course.
 
 void setup() 
 {
@@ -38,27 +39,30 @@ void setup()
   Serial.begin(9600);
   gpsSerial.begin(9600);
   // Makes sure the value is set to the true number.
-  while (homeLattitude == 0 && homeLongitude == 0 && homeAltitude == 0)
+  /*while (homeLattitude == 0 && homeLongitude == 0 && homeAltitude == 0)
   {
     setHome();
-  }
-  setDestination(79.20, 38.088646, -122.158883);
+    Serial.println(homeAltitude);
+  }*/
+  setDestination(259.2, 38.088646, -122.158883);
 }
 
 void loop()
 {
    // Makes sure that the gps gets a lat and long before starting the logic.
-  while(currentLattitude == 0 || currentLongitude == 0)
+  while(currentLattitude == 0 || currentLongitude == 0 || currentAltitude == 0)
   {
     getData();
-    updateDistance(destinationLongitude,destinationLattitude,currentLongitude,currentLattitude);
+    updateDistance();
+    plotCourse();
     printData();
   }
   // Updates the current lat and long.
   if(currentLattitude != 0 || currentLongitude != 0)
   {
     getData();
-    updateDistance(destinationLongitude,destinationLattitude,currentLongitude,currentLattitude);
+    updateDistance();
+    plotCourse();
     printData();
   }
   doubleAltitude = (homeAltitude*2);
@@ -69,7 +73,7 @@ void loop()
     hover();
 
     // Decrease altitude until the drones altitude is equal to the destination altitude.
-    while(currentAltitude != destinationAltitude)
+    while(currentAltitude > destinationAltitude)
     {
       decreaseAltitude;
       if(currentAltitude == destinationAltitude)
@@ -88,5 +92,4 @@ void loop()
     }
     hover();
   }
-  
 }
