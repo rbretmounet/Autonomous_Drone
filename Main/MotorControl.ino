@@ -35,7 +35,7 @@ void increaseAltitude()
 // Used to decrease the drone's altitude.
 void decreaseAltitude()
 {
-  for(int i = 2300; i > 900; i -= 1)  // goes from 2300 degrees to 900 degrees in steps of 1 degree  
+  for(int i = 2300; i > 1300; i -= 1)  // goes from 2300 degrees to 900 degrees in steps of 1 degree  
   {
     throttle--;                                  
     motor_1.writeMicroseconds(throttle); // tell motor to go to position in variable 'throttle' 
