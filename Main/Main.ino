@@ -15,6 +15,7 @@ void hover();
 void setHome();
 void setDestination(float, float, float);
 void updateDistance(float, float, float, float);
+void motorsOff();
 
 Servo motor_1; // Used to communicate values to the esc analog pin connected to motor 1.
 Servo motor_2; // Used to communicate values to the esc analog pin connected to motor 2.
@@ -55,6 +56,10 @@ void loop()
     while(currentAltitude != destinationAltitude)
     {
       decreaseAltitude;
+      if(currentAltitude == destinationAltitude)
+      {
+        motorsOff();
+      }
     }
   }
   // Increase the altitude until the drones altitude is 2 times higher.
