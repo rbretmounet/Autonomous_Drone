@@ -29,7 +29,10 @@ void printData()
       Serial.println(Distance_To_Destination);
       Serial.print ("Course: ");
       Serial.println(courseChangeNeeded);
+      Serial.print ("Satellites: ");
+      Serial.println(numberOfSatellites);
       Serial.println(" ");
+      
     }
   }
 }
