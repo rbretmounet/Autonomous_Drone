@@ -3,6 +3,42 @@
 // Such as yaw, roll, , position, and pitch of the drone.            *
 // *******************************************************************
 
+// Used to make the pitch go forward.
+void pitchForward()
+{
+  
+}
+
+// Used to make the pitch go backwards.
+void pitchBackward()
+{
+  
+}
+
+// Used to make the drone yaw right.
+void yawRight()
+{
+  
+}
+
+// Used to make the drone yaw left.
+void yawLeft()
+{
+  
+}
+
+// Used to make the drone roll right.
+void rollRight()
+{
+  
+}
+
+// Used to make the drone roll left.
+void rollLeft()
+{
+  
+}
+
 // Used to hover in air.
 void hover()
 {
@@ -19,8 +55,7 @@ void hover()
 void increaseAltitude()
 {
   for(throttle; throttle < 2300; throttle += 1)  // goes from current speed to 2300 degrees in steps of 1 degree  
-  {                         
-    throttle++;         
+  {                                 
     motor_1.writeMicroseconds(throttle); // tell motor to go to position in variable 'throttle' 
     motor_2.writeMicroseconds(throttle); // tell motor to go to position in variable 'throttle' 
     motor_3.writeMicroseconds(throttle); // tell motor to go to position in variable 'throttle' 
