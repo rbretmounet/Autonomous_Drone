@@ -7,7 +7,10 @@
 #include <Servo.h>
 #include <MPU6050_tockn.h>
 #include <Wire.h>
-
+//Notes
+//Y axis = Roll
+//X axis = Pitch
+//Z axis = Yaw
 // Function Prototypes
 void increaseAltitude();
 void decreaseAltitude();
