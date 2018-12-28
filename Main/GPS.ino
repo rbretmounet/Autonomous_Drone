@@ -12,7 +12,7 @@ void setHome()
     homeAltitude = (gps.altitude.feet());
 }
 // Used to print out all the gps data that is needed.
-void printData()
+void printGPSData()
 {
    while (gpsSerial.available())
   {
@@ -38,7 +38,7 @@ void printData()
 }
 
 // Sets gps data to a variable that will be used to know the current location of the drone.
-void getData()
+void getGPSData()
 {
   currentLattitude = (gps.location.lat());
   currentLongitude = (gps.location.lng());
