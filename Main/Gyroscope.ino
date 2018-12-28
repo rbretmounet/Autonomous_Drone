@@ -4,6 +4,7 @@
 // will face.                                                              *
 // *************************************************************************
 
+// Used to print out the angle values of gyro.
 void printGyroData()
 {
   mpu6050.update();
@@ -14,6 +15,8 @@ void printGyroData()
   Serial.print("\tangleZ : ");
   Serial.println(angleZ);
 }
+
+// Used to store the angle values of the gyro.
 void getGyroData()
 {
   angleX = mpu6050.getAngleX();
