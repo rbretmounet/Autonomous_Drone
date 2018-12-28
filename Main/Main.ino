@@ -6,6 +6,7 @@
 #include <SoftwareSerial.h>
 #include <Servo.h>
 
+
 // Function Prototypes
 void increaseAltitude();
 void decreaseAltitude();
@@ -18,6 +19,7 @@ void updateDistance();
 void motorsOff();
 void plotCourse();
 
+
 Servo motor_1; // Used to communicate values to the esc analog pin connected to motor 1.
 Servo motor_2; // Used to communicate values to the esc analog pin connected to motor 2.
 Servo motor_3; // Used to communicate values to the esc analog pin connected to motor 3.
@@ -28,7 +30,9 @@ float homeLattitude,homeLongitude,homeAltitude,currentLattitude, currentLongitud
       destinationLattitude, destinationLongitude, destinationAltitude, doubleAltitude; // Used to store data from gps.
 unsigned long Distance_To_Destination, Course_To_Destination; // Used to store the distance from the final destination
 int throttle = 900; // Used to control the throttle speed of the motor.
-int courseChangeNeeded; // Used to store the amount of degegrees needed to correct course.
+int courseChangeNeeded; // Used to store the amount of degrees needed to correct course.
+int numberOfSatellites = gps.satellites.value(); // Used to store the amount satellites being used.
+
 
 void setup() 
 {
@@ -39,35 +43,37 @@ void setup()
   Serial.begin(9600);
   gpsSerial.begin(9600);
   // Makes sure the value is set to the true number.
-  /*while (homeLattitude == 0 && homeLongitude == 0 && homeAltitude == 0)
+  while (homeLattitude == 0 && homeLongitude == 0 && homeAltitude == 0 && numberOfSatellites == 0)
   {
     setHome();
-    Serial.println(homeAltitude);
-  }*/
+    printData();
+  }
   setDestination(259.2, 38.088646, -122.158883);
 }
 
 void loop()
 {
    // Makes sure that the gps gets a lat and long before starting the logic.
-  while(currentLattitude == 0 || currentLongitude == 0 || currentAltitude == 0)
+  while(currentLattitude == 0 && currentLongitude == 0 && currentAltitude == 0 && numberOfSatellites == 0)
   {
     getData();
     updateDistance();
     plotCourse();
     printData();
   }
-  // Updates the current lat and long.
-  if(currentLattitude != 0 || currentLongitude != 0)
+  // Updates the gps data, distance to destination and plots the course from new point.
+  if (currentLattitude != 0 && currentLongitude != 0 && currentAltitude != 0 && numberOfSatellites != 0)
   {
     getData();
     updateDistance();
     plotCourse();
-    printData();
+    printData();  
   }
+  // Used to make the drone go two times the height of the original altitude.
   doubleAltitude = (homeAltitude*2);
+  
   // When the drone reaches the destination.
-  if(Distance_To_Destination < 10)
+  if(Distance_To_Destination <= 10)
   {
     // Stop the drone in the air and hover.
     hover();
@@ -90,6 +96,39 @@ void loop()
     {
       increaseAltitude();
     }
+    // Stop the drone for course correction.
     hover();
+
+    // Logic for course correction to make sure drone is heading in the right direction.
+    if (courseChangeNeeded >= 345 || courseChangeNeeded < 15)
+    {
+      // Keep going straight.
+    }
+    else if (courseChangeNeeded >= 315 && courseChangeNeeded < 345)
+    {
+      // Veer slightly to the left.
+    }
+    else if (courseChangeNeeded >= 15 && courseChangeNeeded < 45)
+    {
+      //Veer slightly to the right.
+    }
+    else if (courseChangeNeeded >= 255 && courseChangeNeeded < 315)
+    {
+      // Turn to the left.
+    }
+    else if (courseChangeNeeded >= 45 && courseChangeNeeded < 105)
+    {
+      // Turn to the right.
+    }
+    else
+    {
+      // Turn completely around.
+    }
+
+  // Stops the drone if their are no connections to satellites.
+  while (numberOfSatellites == 0)
+  {
+      hover();
   }
-}
+ }
+} 
