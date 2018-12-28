@@ -5,20 +5,22 @@
 #include <TinyGPS++.h>
 #include <SoftwareSerial.h>
 #include <Servo.h>
-
+#include <MPU6050_tockn.h>
+#include <Wire.h>
 
 // Function Prototypes
 void increaseAltitude();
 void decreaseAltitude();
-void printData();
-void getData();
+void printGPSData(); 
+void getGPSData();
 void hover();
 void setHome();
 void setDestination(float, float, float);
 void updateDistance();
 void motorsOff();
 void plotCourse();
-
+void printGyroData();
+void getGyroData();
 
 Servo motor_1; // Used to communicate values to the esc analog pin connected to motor 1.
 Servo motor_2; // Used to communicate values to the esc analog pin connected to motor 2.
@@ -26,8 +28,10 @@ Servo motor_3; // Used to communicate values to the esc analog pin connected to 
 Servo motor_4; // Used to communicate values to the esc analog pin connected to motor 4.
 SoftwareSerial gpsSerial(4,3); // Declares pin used to print out gps data.
 TinyGPSPlus gps; // Declares a gps object.
+MPU6050 mpu6050(Wire); // Declares a gyro object
 float homeLattitude,homeLongitude,homeAltitude,currentLattitude, currentLongitude, currentAltitude, 
       destinationLattitude, destinationLongitude, destinationAltitude, doubleAltitude; // Used to store data from gps.
+float angleX, angleY, angleZ;
 unsigned long Distance_To_Destination, Course_To_Destination; // Used to store the distance from the final destination
 int throttle = 900; // Used to control the throttle speed of the motor.
 int courseChangeNeeded; // Used to store the amount of degrees needed to correct course.
@@ -42,32 +46,40 @@ void setup()
   motor_4.attach(12); // Declares the pin of the fourth esc.  
   Serial.begin(9600);
   gpsSerial.begin(9600);
+  Wire.begin(9600);
+  mpu6050.begin();
+  mpu6050.calcGyroOffsets(true); // Calibrates gyroscope.
   // Makes sure the value is set to the true number.
-  while (homeLattitude == 0 && homeLongitude == 0 && homeAltitude == 0 && numberOfSatellites == 0)
+  /*while (homeLattitude == 0 || homeLongitude == 0 || homeAltitude == 0 || numberOfSatellites == 0)
   {
     setHome();
-    printData();
-  }
+    printGPSData(); 
+  }*/
   setDestination(259.2, 38.088646, -122.158883);
 }
 
 void loop()
 {
-   // Makes sure that the gps gets a lat and long before starting the logic.
-  while(currentLattitude == 0 && currentLongitude == 0 && currentAltitude == 0 && numberOfSatellites == 0)
+  
+  // Makes sure that the gps gets a lat and long before starting the logic.
+  while(currentLattitude == 0 || currentLongitude == 0 || currentAltitude == 0 || numberOfSatellites == 0)
   {
-    getData();
+    getGyroData();
+    getGPSData();
     updateDistance();
     plotCourse();
-    printData();
+    printGPSData();
+    printGyroData(); 
   }
-  // Updates the gps data, distance to destination and plots the course from new point.
-  if (currentLattitude != 0 && currentLongitude != 0 && currentAltitude != 0 && numberOfSatellites != 0)
+  // Updates the gps data, distance to destination and plots the course from new point and the current Gyro angles.
+  if (currentLattitude != 0 || currentLongitude != 0 || currentAltitude != 0 || numberOfSatellites != 0)
   {
-    getData();
+    getGyroData();
+    getGPSData();
     updateDistance();
     plotCourse();
-    printData();  
+    printGPSData();
+    printGyroData();
   }
   // Used to make the drone go two times the height of the original altitude.
   doubleAltitude = (homeAltitude*2);
