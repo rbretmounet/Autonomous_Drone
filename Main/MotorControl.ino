@@ -11,8 +11,7 @@ void hover()
     motor_1.writeMicroseconds(throttle); // tell motor to go to position in variable 'throttle' 
     motor_2.writeMicroseconds(throttle); // tell motor to go to position in variable 'throttle' 
     motor_3.writeMicroseconds(throttle); // tell motor to go to position in variable 'throttle' 
-    motor_4.writeMicroseconds(throttle); // tell motor to go to position in variable 'throttle' 
-    delay(15);                       
+    motor_4.writeMicroseconds(throttle); // tell motor to go to position in variable 'throttle'                     
     Serial.println(throttle);// waits 15ms for the servo to reach the position 
   }
 }
@@ -25,8 +24,7 @@ void increaseAltitude()
     motor_1.writeMicroseconds(throttle); // tell motor to go to position in variable 'throttle' 
     motor_2.writeMicroseconds(throttle); // tell motor to go to position in variable 'throttle' 
     motor_3.writeMicroseconds(throttle); // tell motor to go to position in variable 'throttle' 
-    motor_4.writeMicroseconds(throttle); // tell motor to go to position in variable 'throttle' 
-    delay(15);       
+    motor_4.writeMicroseconds(throttle); // tell motor to go to position in variable 'throttle'     
     Serial.println(throttle); // waits 15ms for the servo to reach the position 
   }
 }
@@ -39,8 +37,7 @@ void decreaseAltitude()
     motor_1.writeMicroseconds(throttle); // tell motor to go to position in variable 'throttle' 
     motor_2.writeMicroseconds(throttle); // tell motor to go to position in variable 'throttle' 
     motor_3.writeMicroseconds(throttle); // tell motor to go to position in variable 'throttle' 
-    motor_4.writeMicroseconds(throttle); // tell motor to go to position in variable 'throttle' 
-    delay(15);                       
+    motor_4.writeMicroseconds(throttle); // tell motor to go to position in variable 'throttle'                      
     Serial.println(throttle);// waits 15ms for the servo to reach the position 
   }
 }
@@ -53,8 +50,7 @@ void motorsOff()
     motor_1.writeMicroseconds(throttle); // tell motor to go to position in variable 'throttle' 
     motor_2.writeMicroseconds(throttle); // tell motor to go to position in variable 'throttle' 
     motor_3.writeMicroseconds(throttle); // tell motor to go to position in variable 'throttle' 
-    motor_4.writeMicroseconds(throttle); // tell motor to go to position in variable 'throttle' 
-    delay(15);                       
+    motor_4.writeMicroseconds(throttle); // tell motor to go to position in variable 'throttle'                        
     Serial.println(throttle);// waits 15ms for the servo to reach the position 
   }
 }
