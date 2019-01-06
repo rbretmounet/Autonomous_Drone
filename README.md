@@ -29,24 +29,29 @@ MPU-6050 Module:
 https://www.amazon.com/dp/B008BOPN40/?coliid=I24WGRR2SUMA96&colid=276WO2F9JN13Y&psc=0&ref_=lv_ov_lig_dp_it
 ```
 ### Installing
+-----------
 * [Arduino <br />](https://github.com/rbretmounet/Autonomous_Drone/blob/master/README.md#Arduino)
 * [Project <br />](https://github.com/rbretmounet/Autonomous_Drone/blob/master/README.md#Project)
 #### Libraries:
+-----------
 * [TinyGPS++ <br />](https://github.com/rbretmounet/Autonomous_Drone/blob/master/README.md#tinygps)
 * [MPU-6050 <br />](https://github.com/rbretmounet/Autonomous_Drone/blob/master/README.md#mpu-6050)
 
 #### Arduino 
+-----------
 This is how to install Arduino on computer.
 1) Download the latest version of Arduino at: ```https://www.arduino.cc/en/Main/Software```
 2) Run the installer and follow the onscreen instrustions.
 
 #### TinyGPS++:
+-----------
 This is how to install the TinyGPS++ library for the project. <br />
 1) Go to: ```https://github.com/mikalhart/TinyGPSPlus/releases```
 2) Click on the newest version asset download link.
 3) Once you have the TinyGPS++ zip library open up Arduino.
 4) Then navigate to Sketch > Include Library > Add .Zip Library and select the TinyGPS++ zip library download.
 #### MPU-6050
+-----------
 This is how to install the MPU-6050 library for the project. <br />
 1) Go to: ```https://github.com/tockn/MPU6050_tockn```
 2) Click on the "Clone or Download" button and click the "Download Zip" button
@@ -54,14 +59,17 @@ This is how to install the MPU-6050 library for the project. <br />
 4) Then navigate to Sketch > Include Library > Add .Zip Library and select the MPU-6050 zip library download.
 
 #### Project
+-----------
 This is how to install the github project.
 ##### Method 1:
+-----------
 1) Click on the "Clone or Download" button and click the "Download Zip" button
 2) Extract the zip file
 3) Open "Autonomous_Drone" folder
 4) Open "Main" folder
 5) Open "Main.ino"
 ##### Method 2:
+-----------
 1) Open terminal 
 2) Navigate to desktop: ```cd Deskstop```
 3) Enter in ```git clone https://github.com/rbretmounet/Autonomous_Drone.git```
@@ -70,4 +78,5 @@ This is how to install the github project.
 6) Open "Main.ino"
 
 ### Developer Notes
+-----------
 Must enter in destination gps coordinates manually in the code itself. Potential future update may be too add an app too enter gps coordinates using google maps.
