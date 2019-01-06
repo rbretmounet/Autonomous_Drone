@@ -1,5 +1,5 @@
 # Autonomous Drone
-This project is an autonomous drone that uses gps cordinates to plot a path and fly to that destination. It has built in gyroscope stabilization allowing it to fly with ease. It also has a gps module used to gather crucial data of the drones current altitude, Lattitude, and longituted which is then used to plot and travel its current course.
+This project is an autonomous drone that uses gps cordinates to plot a path and fly to that destination. It has built in gyroscope stabilization allowing it to fly with ease. It also has a gps module used to gather crucial data of the drones current altitude, lattitude, and longituted which is then used to plot and travel its current course.
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 ### Hardware
