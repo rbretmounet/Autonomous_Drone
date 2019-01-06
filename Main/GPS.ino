@@ -43,6 +43,7 @@ void getGPSData()
   currentLattitude = (gps.location.lat());
   currentLongitude = (gps.location.lng());
   currentAltitude = (gps.altitude.feet());
+  numberOfSatellites = (gps.satellites.value());
 }
 
 // Used to set the destination data.
@@ -56,11 +57,13 @@ void setDestination(float altitude, float lattitude, float longitude)
 // Used to calculated the distance to the final destination
 void updateDistance()
 {
+  getGPSData();
   Distance_To_Destination = TinyGPSPlus::distanceBetween(currentLattitude,currentLongitude,destinationLattitude,destinationLongitude);
 }
 
 void plotCourse()
 {
+  getGPSData();
   Course_To_Destination = TinyGPSPlus::courseTo(currentLattitude,currentLongitude,destinationLattitude,destinationLongitude);
   courseChangeNeeded = (int)(360 + Course_To_Destination - gps.course.deg()) % 360;
 
