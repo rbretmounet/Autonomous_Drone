@@ -35,6 +35,7 @@ https://www.amazon.com/dp/B008BOPN40/?coliid=I24WGRR2SUMA96&colid=276WO2F9JN13Y&
 * MPU-6050 <br />
 
 #### Arduino 
+This is how to install Arduino on computer.
 1) Download the latest version of Arduino at: ```https://www.arduino.cc/en/Main/Software```
 2) Run the installer and follow the onscreen instrustions.
 
@@ -46,13 +47,13 @@ This is how to install the TinyGPS++ library for the project. <br />
 4) Then navigate to Sketch > Include Library > Add .Zip Library and select the TinyGPS++ zip library download.
 #### MPU-6050
 This is how to install the MPU-6050 library for the project. <br />
-This is how to install the TinyGPS++ library for the project. <br />
 1) Go to: ```https://github.com/tockn/MPU6050_tockn```
 2) Click on the "Clone or Download" button and click the "Download Zip" button
 3) Once you have the MPU-6050 zip library open up Arduino.
 4) Then navigate to Sketch > Include Library > Add .Zip Library and select the MPU-6050 zip library download.
 
 #### Project
+This is how to install the github project.
 ##### Method 1:
 1) Click on the "Clone or Download" button and click the "Download Zip" button
 2) Extract the zip file
