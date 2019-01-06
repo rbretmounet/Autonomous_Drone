@@ -33,7 +33,6 @@ https://www.amazon.com/dp/B008BOPN40/?coliid=I24WGRR2SUMA96&colid=276WO2F9JN13Y&
 * [Arduino <br />](https://github.com/rbretmounet/Autonomous_Drone/blob/master/README.md#Arduino)
 * [Project <br />](https://github.com/rbretmounet/Autonomous_Drone/blob/master/README.md#Project)
 #### Libraries:
------------
 * [TinyGPS++ <br />](https://github.com/rbretmounet/Autonomous_Drone/blob/master/README.md#tinygps)
 * [MPU-6050 <br />](https://github.com/rbretmounet/Autonomous_Drone/blob/master/README.md#mpu-6050)
 
