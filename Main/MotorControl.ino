@@ -15,6 +15,13 @@ void arm()
   motor_3.writeMicroseconds(throttle_3); // tell motor to go to position in variable 'throttle' 
   motor_4.writeMicroseconds(throttle_4); // tell motor to go to position in variable 'throttle'
 }
+
+// Used to stabalize drone.
+void stablize()
+{
+  
+}
+
 // Used to make the pitch go forward.
 void pitchForward()
 {
@@ -45,10 +52,30 @@ void rollRight()
   // While the drone is not at a 45 degree angle to the right.
     getGyroData();
     printGyroData();
-    throttle_1++; // Increases the power of the left side.
-    throttle_3++; // Increases the power of the left side.
-    throttle_2--; // Decreases the power of the right side.
-    throttle_4--; // Decreases the power of the right side.
+    
+    //Makes sure throttle variable doesnt go past throttle max
+    if(throttle_1 < 2300)
+    {
+      throttle_1++; // Increases the power of the right side.
+    }
+    
+    // Makes sure drone motors dont turn off completely
+    if(throttle_2 > 1200)
+    {
+      throttle_2--; // Decreases the power of the left side.
+    }
+    
+    //Makes sure throttle variable doesnt go past throttle max
+    if(throttle_3 < 2300)
+    {
+      throttle_3++; // Increases the power of the right side.
+    }
+    
+    // Makes sure drone motors dont turn off completely
+    if(throttle_4 > 1200)
+    {
+      throttle_4--; // Decreases the power of the left side.
+    }
     motor_1.writeMicroseconds(throttle_1); // tell motor to go to position in variable 'throttle' 
     motor_2.writeMicroseconds(throttle_2); // tell motor to go to position in variable 'throttle' 
     motor_3.writeMicroseconds(throttle_3); // tell motor to go to position in variable 'throttle' 
@@ -62,19 +89,30 @@ void rollRight()
 // Used to make the drone roll left.
 void rollLeft()
 {
-  // While the drone is not at a 45 degree angle to the left.
     getGyroData();
     printGyroData();
+    // Makes sure drone motors dont turn off completely
     if(throttle_1 > 1200)
     {
       throttle_1--; // Decreases the power of the left side.
     }
+    //Makes sure throttle variable doesnt go past throttle max
+    if(throttle_3 < 2300)
+    {
+      throttle_2++; // Increases the power of the right side.
+    }
+    // Makes sure drone motors dont turn off completely
     if(throttle_3 > 1200)
     {
       throttle_3--; // Decreases the power of the left side.
     }
-    throttle_2++; // Increases the power of the right side.
-    throttle_4++; // Increases the power of the right side.
+    //Makes sure throttle variable doesnt go past throttle max
+    if(throttle_4 < 2300)
+    {
+      throttle_4++; // Increases the power of the right side.
+    }
+    
+    
     motor_1.writeMicroseconds(throttle_1); // tell motor to go to position in variable 'throttle' 
     motor_2.writeMicroseconds(throttle_2); // tell motor to go to position in variable 'throttle' 
     motor_3.writeMicroseconds(throttle_3); // tell motor to go to position in variable 'throttle' 
@@ -96,35 +134,6 @@ void hover()
   motor_2.writeMicroseconds(throttle_2); // tell motor to go to position in variable 'throttle' 
   motor_3.writeMicroseconds(throttle_3); // tell motor to go to position in variable 'throttle' 
   motor_4.writeMicroseconds(throttle_4); // tell motor to go to position in variable 'throttle'
-  if(angleY > 0)
-  {
-    while(angleY > 0)
-    {
-      rollLeft();
-    }
-  }
-  if(angleY < 0)
-  {
-    while(angleY < 0)
-    {
-      rollRight();
-    }
-  }
-  if(angleX > 0)
-  {
-    while(angleX > 0)
-    {
-      pitchBackward();
-    }
-  }
-  if(angleX < 0)
-  {
-    while(angleX < 0)
-    {
-      pitchForward();
-    }
-  }
-  
 }
 // Used to increase the drone's altitude.
 void increaseAltitude()
