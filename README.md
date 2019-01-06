@@ -3,6 +3,7 @@ This project is an autonomous drone that uses gps cordinates to plot a path and 
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 ### Hardware
+--------------------
 Arduino Nano V3:
 ```
 https://www.amazon.com/dp/B0713XK923/?coliid=I242HYSBBB6NHF&colid=276WO2F9JN13Y&psc=0&ref_=lv_ov_lig_dp_it
