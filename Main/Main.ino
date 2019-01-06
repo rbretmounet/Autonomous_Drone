@@ -20,22 +20,6 @@
             /\
     Motor_3/  \ Motor_4
   */
-  
-// Function Prototypes
-void increaseAltitude();
-void decreaseAltitude();
-void rollRight(int);
-void printGPSData(); 
-void getGPSData();
-void hover();
-void setHome();
-void setDestination(float, float, float);
-void updateDistance();
-void motorsOff();
-void plotCourse();
-void printGyroData();
-void getGyroData();
-
 Servo motor_1; // Used to communicate values to the esc analog pin connected to motor 1.
 Servo motor_2; // Used to communicate values to the esc analog pin connected to motor 2.
 Servo motor_3; // Used to communicate values to the esc analog pin connected to motor 3.
