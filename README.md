@@ -28,11 +28,11 @@ MPU-6050 Module:
 https://www.amazon.com/dp/B008BOPN40/?coliid=I24WGRR2SUMA96&colid=276WO2F9JN13Y&psc=0&ref_=lv_ov_lig_dp_it
 ```
 ### Installing
-* Arduino <br />
-* Project <br />
+* [Arduino <br />]
+* [Project <br />]
 #### Libraries:
-* TinyGPS++ <br />
-* MPU-6050 <br />
+* [TinyGPS++ <br />](https://github.com/rbretmounet/Autonomous_Drone/blob/master/README.md#tinygps)
+* [MPU-6050 <br />]
 
 #### Arduino 
 This is how to install Arduino on computer.
