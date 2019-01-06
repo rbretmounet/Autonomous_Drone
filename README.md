@@ -63,7 +63,7 @@ This is how to install the github project.
 ##### Method 2:
 1) Open terminal 
 2) Navigate to desktop: ```cd Deskstop```
-3) Enter in ```git clone https://github.com/rbretmounet/Autonomous_Drone.git"
+3) Enter in ```git clone https://github.com/rbretmounet/Autonomous_Drone.git```
 4) Open "Autonomous_Drone" folder
 5) Open "Main" folder
 6) Open "Main.ino"
