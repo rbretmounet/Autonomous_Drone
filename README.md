@@ -34,8 +34,31 @@ https://www.amazon.com/dp/B008BOPN40/?coliid=I24WGRR2SUMA96&colid=276WO2F9JN13Y&
 * TinyGPS++ <br />
 * MPU-6050 <br />
 
+#### Arduino 
+1) Download the latest version of Arduino at: ```https://www.arduino.cc/en/Main/Software```
+2) Run the installer and follow the onscreen instrustions.
+
 #### TinyGPS++:
 This is how to install the TinyGPS++ library for the project. <br />
-1) Go to: ```http://arduiniana.org/libraries/tinygpsplus/```
-2) Click on the download button that looks like this: <br />
-![alt text](http://arduiniana.org/wp-content/uploads/2013/09/green-download-button-150x150.jpg)
+1) Go to: ```https://github.com/mikalhart/TinyGPSPlus/releases```
+2) Click on the newest version asset download link.
+3) Once you have the TinyGPS++ zip library open up Arduino.
+4) Then navigate to Sketch > Include Library > Add .Zip Library and select the TinyGPS++ zip library download.
+#### MPU-6050
+This is how to install the MPU-6050 library for the project. <br />
+This is how to install the TinyGPS++ library for the project. <br />
+1) Go to: ```https://github.com/tockn/MPU6050_tockn```
+2) Click on the "Clone or Download" button and click the "Download Zip" button
+3) Once you have the MPU-6050 zip library open up Arduino.
+4) Then navigate to Sketch > Include Library > Add .Zip Library and select the MPU-6050 zip library download.
+
+#### Project
+##### Method 1:
+1) Click on the "Clone or Download" button and click the "Download Zip" button
+2) Extract the zip file
+3) Open Main.ino
+##### Method 2:
+1) Open terminal 
+2) Navigate to desktop: ```cd Deskstop```
+3) Enter in ```git clone 
+
