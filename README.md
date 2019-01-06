@@ -61,14 +61,12 @@ This is how to install the MPU-6050 library for the project. <br />
 -----------
 This is how to install the github project.
 ##### Method 1:
------------
 1) Click on the "Clone or Download" button and click the "Download Zip" button
 2) Extract the zip file
 3) Open "Autonomous_Drone" folder
 4) Open "Main" folder
 5) Open "Main.ino"
 ##### Method 2:
------------
 1) Open terminal 
 2) Navigate to desktop: ```cd Deskstop```
 3) Enter in ```git clone https://github.com/rbretmounet/Autonomous_Drone.git```
