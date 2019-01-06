@@ -56,9 +56,16 @@ This is how to install the TinyGPS++ library for the project. <br />
 ##### Method 1:
 1) Click on the "Clone or Download" button and click the "Download Zip" button
 2) Extract the zip file
-3) Open Main.ino
+3) Open "Autonomous_Drone" folder
+4) Open "Main" folder
+5) Open "Main.ino"
 ##### Method 2:
 1) Open terminal 
 2) Navigate to desktop: ```cd Deskstop```
-3) Enter in ```git clone 
+3) Enter in ```git clone https://github.com/rbretmounet/Autonomous_Drone.git"
+4) Open "Autonomous_Drone" folder
+5) Open "Main" folder
+6) Open "Main.ino"
 
+### Developer Notes
+Must enter in destination gps coordinates manually in the code itself. Potential future update may be too add an app too enter gps coordinates using google maps.
