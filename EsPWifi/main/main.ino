@@ -22,6 +22,7 @@ DNSServer         dnsServer;              // Create the DNS object
 
 ESP8266WebServer server(80);
 bool Armed = true;
+String OutputBuffer = "";
 
 const char HTMLARMED[] = 
 "<html>"
@@ -47,7 +48,7 @@ const char HTMLARMED[] =
 "    <body width=100%>"
 "        <div width='100%'>"
 "            <div align=center>"
-"                <h1>Elmer's Remote Control</h1></div>"
+"                <h3>Elmer's Remote Control</h3></div>"
 "            <form action='/' method='POST'>"
 "<input type='hidden' name='shim' value='' />"
 "                <table width='100%'>"
@@ -109,7 +110,7 @@ const char HTMLDISARMED[] =
 "    <body width=100%>"
 "        <div width='100%'>"
 "            <div align=center>"
-"                <h1>Elmer's Remote Control</h1></div>"
+"                <h3>Elmer's Remote Control</h3></div>"
 "            <form action='/' method='POST'>"
 "<input type='hidden' name='shim' value='' />"
 "                <table width='100%'>"
@@ -150,23 +151,23 @@ const char HTMLDISARMED[] =
 void handleRoot() {
 
  String message = "Request received:\n";
- for (int i = 0; i < server.args(); i++) {
-
-message += "Arg nº" + (String)i + " –> ";
-message += server.argName(i) + ": ";
-message += server.arg(i) + "\n";
-
-} 
- for (int i = 0; i < server.headers(); i++) {
-
-message += "Header nº" + (String)i + " –> ";
-message += server.headerName(i) + ": ";
-message += server.header(i) + "\n";
-
-} 
-message += server.arg("plain");
-message += "\n";
-  Serial.println(message);
+// for (int i = 0; i < server.args(); i++) {
+//
+//message += "Arg nº" + (String)i + " –> ";
+//message += server.argName(i) + ": ";
+//message += server.arg(i) + "\n";
+//
+//} 
+// for (int i = 0; i < server.headers(); i++) {
+//
+//message += "Header nº" + (String)i + " –> ";
+//message += server.headerName(i) + ": ";
+//message += server.header(i) + "\n";
+//
+//} 
+//message += server.arg("plain");
+//message += "\n";
+//  Serial.println(message);
 
   if (server.hasArg("action"))
   {
@@ -176,6 +177,25 @@ message += "\n";
     { 
         Serial.println(Armed);
         Armed = !Armed;
+        if (Armed)
+          OutputBuffer +="A";
+        else
+          OutputBuffer +="!";
+          
+        
+    }
+
+    // only look at other commands if the system is armed!
+    if (Armed)
+    {
+      if (a.equals( "Left"))
+          OutputBuffer +="L";
+      if (a.equals( "Right"))
+          OutputBuffer +="R";
+      if (a.equals( "Up"))
+          OutputBuffer +="U";
+      if (a.equals( "Down"))
+          OutputBuffer +="D";
     }
   }
 
@@ -210,6 +230,8 @@ void setup(void) {
   Serial.print(ssid);
   Serial.print(" PWD:");
   Serial.print(password);
+
+  Serial1.begin(115200); //setting up the Tx for arduino to watch. TX pin on ESP is D8
    /* You can remove the password parameter if you want the AP to be open. */
   WiFi.mode(WIFI_AP);
   WiFi.softAP(ssid, password);
@@ -239,9 +261,15 @@ void loop(void) {
   {
     // nobody watching... disarm!
     Armed = false;
+    OutputBuffer +="!";
     Serial.println("No wifi clients... disarming");
   }
 
+  if (OutputBuffer.length()>0)
+  {
+    Serial1.print(OutputBuffer);
+    OutputBuffer = "";
+  }
   server.handleClient();
   dnsServer.processNextRequest();
 }
