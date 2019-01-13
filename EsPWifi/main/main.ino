@@ -21,14 +21,170 @@ const byte        DNS_PORT = 53;          // Capture DNS requests on port 53
 DNSServer         dnsServer;              // Create the DNS object
 
 ESP8266WebServer server(80);
+bool Armed = true;
+
+const char HTMLARMED[] = 
+"<html>"
+""
+"<head>"
+"    <style>"
+"        body {"
+"            padding-top: 50px;"
+"        }"
+"        "
+"        .red {"
+"            background-color: #f44336;"
+"            width: 100%;"
+"            height: 140px;"
+"        }"
+"        "
+"        button {"
+"            width: 75%;"
+"            height: 100px;"
+"        }"
+"    </style>"
+"</head>"
+"    <body width=100%>"
+"        <div width='100%'>"
+"            <div align=center>"
+"                <h1>Elmer's Remote Control</h1></div>"
+"            <form action='/' method='POST'>"
+"<input type='hidden' name='shim' value='' />"
+"                <table width='100%'>"
+"                    <tbody>"
+"                        <tr>"
+"                            <td></td>"
+"                            <td style='text-align:center'>"
+"                                <button type='submit' name='action' value='Up'>Up</button>"
+"                            </td>"
+"                            <td></td>"
+"                        </tr>"
+"                        <tr>"
+"                            <td style='text-align:center'>"
+"                                <button type='submit' name='action' value='Left'>Left</button>"
+"                            </td>"
+"                            <td>"
+"                                <button type='submit' class='btn red' name='action' value='DISARM' style='RED'>ARM</button>"
+"                            </td>"
+"                            <td>"
+"                                <button type='submit'  name='action' value='Right'>Right</button>"
+"                            </td>"
+"                        </tr>"
+"                        <tr>"
+"                            <td></td>"
+"                            <td style='text-align:center'>"
+"                                <button type='submit' name='action' value='Down'>Down</button>"
+"                            </td>"
+"                            <td></td>"
+"                        </tr>"
+"                    </tbody>"
+"                </table>"
+"            </form>"
+"        </div>"
+"    </body>"
+""
+"</html>";
+
+const char HTMLDISARMED[] = 
+"<html>"
+""
+"<head>"
+"    <style>"
+"        body {"
+"            padding-top: 50px;"
+"        }"
+"        "
+"        .red {"
+"            background-color: #008000;"
+"            width: 100%;"
+"            height: 140px;"
+"        }"
+"        "
+"        button {"
+"            width: 75%;"
+"            height: 100px;"
+"        }"
+"    </style>"
+"</head>"
+"    <body width=100%>"
+"        <div width='100%'>"
+"            <div align=center>"
+"                <h1>Elmer's Remote Control</h1></div>"
+"            <form action='/' method='POST'>"
+"<input type='hidden' name='shim' value='' />"
+"                <table width='100%'>"
+"                    <tbody>"
+"                        <tr>"
+"                            <td></td>"
+"                            <td style='text-align:center'>"
+"                                <button type='submit' name='action' value='Up'>Up</button>"
+"                            </td>"
+"                            <td></td>"
+"                        </tr>"
+"                        <tr>"
+"                            <td style='text-align:center'>"
+"                                <button type='submit' name='action' value='Left'>Left</button>"
+"                            </td>"
+"                            <td>"
+"                                <button type='submit' class='btn red' name='action' value='DISARM' style='RED'>DISARM</button>"
+"                            </td>"
+"                            <td>"
+"                                <button type='submit' name='action' value='Right'>Right</button>"
+"                            </td>"
+"                        </tr>"
+"                        <tr>"
+"                            <td></td>"
+"                            <td style='text-align:center'>"
+"                                <button type='submit' name='action' value='Down'>Down</button>"
+"                            </td>"
+"                            <td></td>"
+"                        </tr>"
+"                    </tbody>"
+"                </table>"
+"            </form>"
+"        </div>"
+"    </body>"
+""
+"</html>";
 
 void handleRoot() {
-  char temp[400];
- 
 
-  snprintf(temp, 400,
-           "<html> <head> <style>body{padding-top: 50px;}.red{background-color: #f44336;}/</style><body><H1>Elmer's Remote Control</h1><form action='.' method='POST'><table><tbody><tr><td></td><tdstyle='text-align:center'><button type='button submit' id='Up'>Up</button> </td><td></td></tr><tr> <tdstyle='text-align:center'> <button type='button submit' id='Left'>Left</button> </td><td> <button type='button submit' class='btn red' id='DISARM'>DISARM</button> </td><td> <button type='button submit' id='Right'>Right</button> </td></tr><tr> <td></td><tdstyle='text-align:center'><button type='button submit' id='Down'>Down</button></td><td></td></tr></tbody></table></form></body></html>");
-  server.send(200, "text/html", temp);
+ String message = "Request received:\n";
+ for (int i = 0; i < server.args(); i++) {
+
+message += "Arg nº" + (String)i + " –> ";
+message += server.argName(i) + ": ";
+message += server.arg(i) + "\n";
+
+} 
+ for (int i = 0; i < server.headers(); i++) {
+
+message += "Header nº" + (String)i + " –> ";
+message += server.headerName(i) + ": ";
+message += server.header(i) + "\n";
+
+} 
+message += server.arg("plain");
+message += "\n";
+  Serial.println(message);
+
+  if (server.hasArg("action"))
+  {
+    String a = server.arg("action");
+
+    if (a.equals( "DISARM"))
+    { 
+        Serial.println(Armed);
+        Armed = !Armed;
+    }
+  }
+
+  if (Armed==true)
+    server.send(200, "text/html", HTMLARMED);
+  
+  else
+    server.send(200, "text/html", HTMLDISARMED);
+  
 }
 
 void handleNotFound() {
@@ -78,6 +234,14 @@ void setup(void) {
 }
 
 void loop(void) {
+  int count = WiFi.softAPgetStationNum();
+  if (count==0 and Armed == true)
+  {
+    // nobody watching... disarm!
+    Armed = false;
+    Serial.println("No wifi clients... disarming");
+  }
+
   server.handleClient();
   dnsServer.processNextRequest();
 }
