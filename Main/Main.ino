@@ -39,6 +39,14 @@ int courseChangeNeeded; // Used to store the amount of degrees needed to correct
 int numberOfSatellites = 1; // Used to store the amount satellites being used.
 
 
+#define ESP_REMOTE false    // change to true to enable the esp daughter card with wifi remote.
+
+#if ESP_REMOTE
+  bool Armed = false;
+  #define ESPRXPIN 99
+  SoftwareSerial espSerial(ESPRXPIN,99); // Declares pin used to print out gps data.
+#endif
+
 void setup() 
 {
   motor_1.attach(9); // Declares the pin of the first esc. 
@@ -63,11 +71,42 @@ void setup()
     printGyroData(); 
   }
   setDestination(259.2, 38.088646, -122.158883);*/
+
+#if ESP_REMOTE
+  Armed = false;
+  espSerial.begin(115200);
+#endif
   
 }
 
 void loop()
 {
+
+#if ESP_REMOTE
+  while (espSerial.available()>0)
+  {
+    char c = espSerial.read();
+    switch (c)
+    {
+       case 'A':
+        Armed = true;
+        break;
+       case '!':
+        Armed = false;
+        break;
+        
+       case 'D':
+        break;        
+       case 'U':
+        break;
+       case 'L':
+        break;
+       case 'R':
+        break;
+    }
+  }  
+#endif
+
   /* Updates the gps data, distance to destination and plots the course from new point and the current Gyro angles.
     getGyroData();
     getGPSData();
